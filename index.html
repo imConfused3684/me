@@ -3,11 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>ubuntu-gr-server01</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        @media (max-width: 1000px) {
+            body{
+                background-image: url("./src/visit_backgroound_turned.png");
+            }
+        }
+        @media (min-width: 1000px) {
+            body{
+                background-image: url("./src/visit_backgroound.png");
+            }
+        }
+
+        .note{
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <script>
+
+    </script>
 </head>
 <body>
-    <h1>список маркированый<h1>
+    <div class="note">
+        <h1>список маркированый<h1>
+
         <li><a href="http://94.231.138.170:5173">Руммикуб</a></li>
         <li><a href="https://www.hasthelargehadroncolliderdestroyedtheworldyet.com/">Уничтожил ли большой адронный коллайдер землю?</a></li>
         <li><a href="http://94.231.138.170:666">кшк</a></li>
+    </div>
 </body>
 </html>
