@@ -31,8 +31,6 @@
 
         .note{
             position: fixed;
-            top: 20%;
-            left: 20%;
 
             width: 400px;
             height: 400px;
@@ -47,11 +45,10 @@
             justify-content: center;
         }
 
-        .note h1, .note a{
+        .note h1, .note a, .note p{
             color: #000080;
             font-family: handwrititng;
         }
-
         .note a{
             text-decoration: none;
         }
@@ -59,18 +56,23 @@
             text-decoration: underline;
         }
 
+        .note0{
+            top: 5%;
+            left: 5%;
+        }
+        .note1{
+            top: 20%;
+            left: 50%;
+        }
         .note0text{
             width: 250px;
             height: 300px;
             line-height: 30px;
         }
     </style>
-    <script>
-
-    </script>
 </head>
 <body>
-    <div class="note">
+    <div class="note note0">
         <div class="note0text">
             <h1>список маркированый<h1>
 
@@ -79,5 +81,50 @@
             <li><a href="http://94.231.138.170:666">кшк</a></li>
         </div>
     </div>
+
+    <div class="note note1">
+        <div class="note0text">
+            <h1>note1h1<h1>
+
+            <p>fdgdhsryhdgh</p><p>xtextetxtextextetx</p>
+        </div>
+    </div>
 </body>
+<script>
+    let mousePosition;
+    let isDown = false;
+    divlist = document.querySelectorAll(".note")
+
+    divlist.forEach(div => {
+        div.addEventListener('mousedown', function(e) {
+            isDown = true;
+            div.offset = [
+                div.offsetLeft - e.clientX,
+                div.offsetTop - e.clientY
+            ];
+            div.style.zIndex = 1000;
+        }, true);
+
+        div.addEventListener('mouseup', function() {
+            div.style.zIndex = 0;
+            isDown = false;
+        }, true);
+
+        div.addEventListener('mousemove', function(event) {
+            event.preventDefault();
+            if (isDown) {
+                mousePosition = {
+
+                    x : event.clientX,
+                    y : event.clientY
+
+                };
+                div.style.left = (mousePosition.x + div.offset[0]) + 'px';
+                div.style.top  = (mousePosition.y + div.offset[1]) + 'px';
+            }
+        }, true);
+    });
+
+    
+</script>
 </html>
