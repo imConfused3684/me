@@ -3,8 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Catalog</title>
+    <style>
+        body{
+            background-color: rgb(107, 107, 107);
+        }
+
+        .container{
+            padding: 20px;
+            column-count: 5;
+        }
+
+        .container img{
+            width: 100%;
+            margin-bottom: 20px;
+            transition: transform .1s;
+        }
+
+        .container img:hover{
+            transform: scale(1.1);
+        }
+    </style>
 </head>
     <body>
-        
+        <div class="container">
+            
+        </div>        
     </body>
+
+    <script>
+        let folder = "./cat/src/";
+        let extentions = ['jpg', 'png']
+        let container = document.querySelector(".container")
+
+        fetch(folder).then((data)=>{
+            data.text().then((txt)=>{
+                let lol = document.createElement("div")
+                lol.innerHTML = txt
+                lol.querySelectorAll("a").forEach(element => {
+                    if(extentions.includes(element.className.split(' ')[1])){
+                        let imgwrapper = document.createElement("div")
+                        imgwrapper.innerHTML = `<img src="${element.href}" onclick='window.open("${element.href}")'>`
+                        container.appendChild(imgwrapper)
+                    }
+                });
+            })
+        })
+    </script>
 </html>
