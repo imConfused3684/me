@@ -43,6 +43,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            transition: transform .1s;
+        }
+        .note:active {
+            transform: scale(1.3);
         }
 
         .note h1, .note a, .note p{
@@ -85,9 +90,9 @@
 
     <div class="note note1">
         <div class="note0text">
-            <h1>note1h1<h1>
+            <h1>Записки<h1>
 
-            <p>fdgdhsryhdgh</p><p>xtextetxtextextetx</p>
+            <p>Можно двигать</p><p>Зачем?</p>
         </div>
     </div>
 </body>
@@ -118,6 +123,38 @@
 
                     x : event.clientX,
                     y : event.clientY
+
+                };
+                div.style.left = (mousePosition.x + div.offset[0]) + 'px';
+                div.style.top  = (mousePosition.y + div.offset[1]) + 'px';
+            }
+        }, true);
+    });
+
+    divlist.forEach(div => {
+        div.addEventListener('touchstart', function(e) {
+            console.log(1)
+            isDown = true;
+            div.offset = [
+                div.offsetLeft - e.touches[0].clientX,
+                div.offsetTop - e.touches[0].clientY
+            ];
+            div.style.zIndex = 1000;
+        }, true);
+
+        div.addEventListener('touchend', function() {
+            div.style.zIndex = 0;
+            isDown = false;
+        }, true);
+
+        div.addEventListener('touchmove', function(event) {
+            console.log(2)
+            event.preventDefault();
+            if (isDown) {
+                mousePosition = {
+
+                    x : event.touches[0].clientX,
+                    y : event.touches[0].clientY
 
                 };
                 div.style.left = (mousePosition.x + div.offset[0]) + 'px';
