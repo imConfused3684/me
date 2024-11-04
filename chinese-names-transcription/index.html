@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palladi transcription system</title>
+    <style>
+        @media (max-width: 1210px){
+            .container{
+                flex-direction: column;
+            }
+            .container input{
+                width: 100vw;
+                height: 10vw;
+                text-align: center;
+            }
+            .container button{
+                width: 100vw;
+                height: 10vw;
+            }
+        }
+
+
+
+        input{
+            width: 30vw;
+            height: 3vh;
+            border: none;
+            font-size: x-large;
+        }
+
+        button{
+            height: 3.2vh;
+            border: none;
+            font-weight: bold;
+        }
+        button:hover{
+            box-shadow: 2px 2px 5px rgb(29, 28, 28);
+            transition-duration: 100ms;
+            cursor: pointer;
+        }
+        button:active{
+            box-shadow: -2px -2px 0px rgb(29, 28, 28);
+        }
+
+        .container{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body{
+            padding: 0;
+            margin: 0;
+            background-color: rgb(107, 107, 107);
+        }
+    </style>
+    <script>
+        let map;
+        async function getmap() {
+            const response = await fetch('./chinese-names-transcription/transcript.json');
+            return await response.json();
+        }
+
+        function transcript(input){
+            let engname = input.value.split(' ')
+            let runame = ''
+            
+            engname.forEach(part => {
+                let i = 0;
+                let temp = '';
+                part.split('').forEach(letter => {
+                    temp += letter;
+                    if(part[i+1]){
+                        if(map[temp.toLowerCase()] && !map[temp.toLowerCase() + part[i+1].toLowerCase()]){
+                            runame += map[temp.toLowerCase()]
+                            temp = ''
+                        }
+                    }
+                    else{
+                        if(map[temp.toLowerCase()]){
+                            runame += map[temp.toLowerCase()]
+                            temp = ''
+                        }
+                    }
+                    
+                    i++
+                });
+                runame += ' '
+            });
+
+            input.value = runame
+            if(runame.trim() == '') alert("nothing to translate")
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <input type="text" >
+        <button onclick="transcript(document.querySelector('input'))">Translate</button>
+    </div>
+</body>
+<script>
+    getmap().then((data)=>{map = data})
+</script>
+</html>
