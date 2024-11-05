@@ -91,9 +91,11 @@
                 runame += ' '
             });
 
-            input.value = runame
+            input.value = runame.trim()
             if(runame.trim() == '') alert("nothing to translate")
         }
+
+        getmap().then((data)=>{map = data})
     </script>
 </head>
 <body>
@@ -102,7 +104,4 @@
         <button onclick="transcript(document.querySelector('input'))">Translate</button>
     </div>
 </body>
-<script>
-    getmap().then((data)=>{map = data})
-</script>
 </html>
